@@ -1,7 +1,14 @@
-# ESP-Hosted shared partition table — 4 MB flash, dual OTA (1.75 MB per slot)
-# Name,     Type, SubType, Offset,   Size
-nvs,        data, nvs,     0x9000,   0x4000
-otadata,    data, ota,     0xd000,   0x2000
-phy_init,   data, phy,     0xf000,   0x1000
-ota_0,      app,  ota_0,   0x10000,  0x1C0000
-ota_1,      app,  ota_1,   0x1D0000, 0x1C0000
+# Waveshare ESP32-P4-NANO factory C5 flash layout (4 MB), mirrored 1:1 from
+# the factory merged image so generated table/flash_args match the board.
+# Partition table itself lives at 0xC000 (CONFIG_PARTITION_TABLE_OFFSET),
+# NOT the IDF default 0x8000 — that sector is erased on this board.
+# Name,          Type, SubType,  Offset,   Size,     Flags
+esp_secure_cert, 0x3f, 0x06,     0xd000,   0x2000,   encrypted
+nvs_key,         data, nvs_keys, 0xf000,   0x1000,   encrypted
+nvs,             data, nvs,      0x10000,  0x6000,
+otadata,         data, ota,      0x16000,  0x2000,
+phy_init,        data, phy,      0x18000,  0x1000,
+ota_0,           app,  ota_0,    0x20000,  0x1e0000,
+ota_1,           app,  ota_1,    0x200000, 0x1e0000,
+reserved,        0x06, 0x06,     0x3e0000, 0x1a000,
+fctry,           data, nvs,      0x3fa000, 0x6000,

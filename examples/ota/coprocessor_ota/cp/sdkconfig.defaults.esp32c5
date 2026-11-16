@@ -54,6 +54,10 @@ CONFIG_ESP_CACHE_MALLOC=y
 # ESP_HOSTED_TRANSPORT_CP_SDIO_DEFAULT_SPEED=y
 # ESP_HOSTED_TRANSPORT_CP_SDIO_STREAMING_MODE=n
 
+# Match the dashcam host (CONFIG_ESP_HOSTED_HOST_SDIO_RX_STREAMING_MODE=y)
+# and the factory 2.12.9 CP: byte-tight streaming frames, not SW_AGGR.
+CONFIG_EH_TRANSPORT_CP_SDIO_MODE_STREAM=y
+
 # For SPI Full duplex C6 on ESP32-P4-Function-EV-Board, please uncomment below
 #CONFIG_C6_SPI_WITH_P4=y
 

@@ -17,6 +17,13 @@ CONFIG_BT_ENABLED=n
 CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
 CONFIG_PARTITION_TABLE_CUSTOM=y
 CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions_eh_cp_ota_4m.csv"
+# Waveshare factory flash keeps its partition table at 0xC000, NOT the IDF
+# default 0x8000 (that sector is erased on this board). With the default
+# offset, load_partitions reads 0xFF, silently builds an EMPTY partition
+# list -> nvs_flash_init / esp_ota_* return 0x105 -> abort loop at main.c:35.
+# The factory table DOES carry a valid MD5, so stock MD5=y is correct.
+CONFIG_PARTITION_TABLE_OFFSET=0xC000
+CONFIG_PARTITION_TABLE_MD5=y
 
 # OS
 CONFIG_FREERTOS_HZ=1000
